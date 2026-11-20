@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students</title>
-</head>
-<body>
-    
+<x-layouts.app title="Students">
     <h1>Students</h1>
 
-    @if(session('success'))
-        <p>{{session('success')}}</p>
-    @endif
+    <a href="{{ route('students.create') }}" class="btn">
+        Create Student
+    </a>
 
-    <a href="/students/create">Create Students</a>
-
-    <table border="1" cellpadding="10">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -30,30 +20,25 @@
         <tbody>
             @forelse($students as $student)
                 <tr>
-                    <td>{{$student->id}}</td>
-                    <td>{{$student->name}}</td>
-                    <td>{{$student->email}}</td>
-                    <td>{{$student->phone}}</td>
-                    <td>{{$student->date_of_birth ?? 'No Date Available'}}</td>
-                    <td> <a href="/students/{{$student->id}}">View</a>
-                    <a href="/students/{{$student->id}}/edit">Edit</a>
-                    <form action="/students/{{$student->id}}" method="POST" style="display:inline">
+                    <td>{{ $student->id }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->email }}</td>
+                    <td>{{ $student->phone }}</td>
+                    <td>{{ $student->date_of_birth }}</td>
 
-                    @csrf
-                    @method('DELETE')
+                    <td>
+                        <a href="{{ route('students.show', $student) }}">View</a>
 
-                    <button type="submit">Delete</button>
-                    </form>
+                        <a href="{{ route('students.edit', $student) }}">Edit</a>
+
+                        <x-delete-form :action="route('students.destroy', $student)" />
                     </td>
                 </tr>
             @empty
-            <tr>
-                <td colspan="6">
-                    No students found.
-                </td>
-            </tr>
-        @endforelse
-</tbody>
-</table>
-</body>
-</html>
+                <tr>
+                    <td colspan="6">No students found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</x-layouts.app>

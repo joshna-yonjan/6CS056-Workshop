@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Detail</title>
-</head>
-<body>
+<x-layouts.app title="Student Details">
     <h1> Student Details </h1>
 
     <p>
@@ -24,20 +17,27 @@
     </p>
 
     <p>
+        <strong>Phone:</strong>
+        {{ $student-> phone }}
+    </p>
+
+    <p>
         <strong>Address:</strong>
         {{ $student -> address }}
     </p>
 
     <p>
         <strong>Date of Birth:</strong>
-        {{ $student -> date_of_birth }}
+        {{ $student -> date_of_birth?->format('d M Y') }}
     </p>
 
-    <a href="/students/{{ $student -> id }}/edit"> Edit Student </a>
+    <p>
+        <strong>Age:</strong>
+        {{ $student -> age ?? 'Not Available' }}
+    </p>
 
-    <br>
+    <a href="{{ route('students.edit', $student) }}" class="btn"> Edit Student </a>
 
-    <a href="/students/">Back to Students </a>
+    <a href="{{ route('students.index') }}">Back to Students</a>
     
-</body>
-</html>
+</x-layouts.app>

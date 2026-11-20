@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details</title>
-</head>
-<body>
+<x-layouts.app title="Course Details">
     <h1>Course Details</h1>
 
     <p>
@@ -25,7 +18,7 @@
 
     <p>
         <strong>Duration:</strong>
-        {{ $course->duration }}
+        {{ $course->duration }} weeks
     </p>
 
     <p>
@@ -43,11 +36,7 @@
         {{ $course->is_active }}
     </p>
 
-    <a href="/courses/{{ $course->id }}/edit">Edit Course</a>
-
-    <br>
+    <a href="{{ route('courses.edit', $course) }}" class="btn">Edit Course</a>
     
-    <a href="/courses">Back to Courses</a>
-
-</body>
-</html>
+    <a href="{{ route('courses.index')}}">Back to Courses</a>
+</x-layouts.app>
